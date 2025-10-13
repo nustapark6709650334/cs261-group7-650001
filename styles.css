@@ -42,7 +42,7 @@ html,body{
   border:1px solid var(--gray);
   border-radius:12px;
   padding:18px;
-  text-align:center;
+  text-align:left;
   margin:18px 0;
 }
 .title-card h2{
@@ -63,3 +63,4 @@ html,body{
   background:#2d2f36;
   color:#fff;
 }
+
