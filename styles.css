@@ -42,7 +42,7 @@ html,body{
   border:1px solid var(--gray);
   border-radius:12px;
   padding:18px;
-  text-align:left;
+  text-align:center;
   margin:18px 0;
 }
 .title-card h2{
@@ -50,6 +50,17 @@ html,body{
 }
 .title-card .btn{
   display:inline-block;
+}
+.card{
+  background:var(--gray);
+  border:1px solid var(--gray);
+  border-radius:12px;
+  padding:18px;
+  text-align:left;
+  margin:18px 0;
+}
+.card h3{
+  margin:0 0 12px 0;
 }
 
 /* Buttons จ้า*/
@@ -62,5 +73,60 @@ html,body{
 .btn--dark{
   background:#2d2f36;
   color:#fff;
+}
+
+.footer {
+  background: #e3e3e3;         
+  border-top: 1px solid #bbb;
+  padding: 24px 0;
+}
+
+.footer__inner {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 16px;
+  display: grid;
+  grid-template-columns: 1fr 1fr; 
+  position: relative;
+}
+
+/* เส้นตรงกลาง */
+.footer__inner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;                   
+  width: 1px;
+  background: #bbb;
+}
+
+.fcol {
+  padding: 0 20px;
+}
+
+.logo {
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.logo span {
+  font-weight: 600;
+}
+
+.fcol h4 {
+  margin: .2rem 0;
+}
+.fcol p {
+  margin: .2rem 0 .8rem 0;
+}
+
+
+@media(max-width: 768px) {
+  .footer__inner {
+    grid-template-columns: 1fr;
+  }
+  .footer__inner::before {
+    display: none; 
+  }
 }
 
