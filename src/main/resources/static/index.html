@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>เช็คชื่อเข้าชั้นเรียนด้วยตำแหน่ง (Geolocation)</title>
+  <style>
+    :root { font-family: system-ui, sans-serif; }
+    body { max-width: 720px; margin: 2rem auto; padding: 0 1rem; }
+    header { margin-bottom: 1rem; }
+    .card { border: 1px solid #ddd; border-radius: 12px; padding: 1rem; margin: 1rem 0; }
+    label { display:block; margin: .5rem 0 .25rem; }
+    input, select, button { padding: .6rem .8rem; font-size: 1rem; }
+    button { cursor: pointer; }
+    .ok { color: #0a7d27; font-weight: 600; }
+    .bad { color: #b00020; font-weight: 600; }
+    .muted { color: #666; }
+    .mono { font-family: ui-monospace, Menlo, Consolas, monospace; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>เช็คชื่อเข้าชั้นเรียนด้วยตำแหน่ง (Geolocation)</h1>
+    <p class="muted">สาธิต HTML5 + JS (View) ↔ Spring Boot REST API (Controller/Model)</p>
+  </header>
+
+  <section class="card">
+    <h2>1) เลือกห้องเรียน</h2>
+    <div>
+      <label for="classId">Classroom</label>
+      <select id="classId"></select>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>2) กรอกรหัสนักศึกษา</h2>
+    <label for="studentId">Student ID</label>
+    <input id="studentId" placeholder="เช่น 6601234567" />
+  </section>
+
+  <section class="card">
+    <h2>3) เช็คชื่อด้วยตำแหน่งปัจจุบัน</h2>
+    <button id="btnCheck">เช็คชื่อเข้าชั้นเรียน</button>
+    <p id="status" class="muted">พร้อมตรวจสอบ…</p>
+    <div id="result" class="mono"></div>
+  </section>
+  
+    <script>
+    const $ = (sel) => document.querySelector(sel);
+    const classSel = $('#classId');
+    const btn = $('#btnCheck');
+    const statusEl = $('#status');
+    const resultEl = $('#result');
+
+    async function loadClassrooms() {
+      const res = await fetch('/api/classrooms');
+      const rooms = await res.json();
+      for (const r of rooms) {
+        const opt = document.createElement('option');
+        opt.value = r.id;
+        opt.textContent = `${r.name} (radius ${Math.round(r.radiusMeters)} m)`;
+        classSel.appendChild(opt);
+      }
+    }
+
+    function getCurrentPositionAsync(options) {
+      return new Promise((resolve, reject) => {
+        if (!('geolocation' in navigator)) {
+          reject(new Error('เบราว์เซอร์ไม่รองรับ Geolocation API'));
+          return;
+        }
+        navigator.geolocation.getCurrentPosition(resolve, reject, options);
+      });
+    }
+
+    async function checkin() {
+      try {
+        statusEl.textContent = 'กำลังขอตำแหน่งปัจจุบัน…';
+        const pos = await getCurrentPositionAsync({ enableHighAccuracy: true, timeout: 15000, maximumAge: 0 });
+        const { latitude, longitude, accuracy } = pos.coords;
+        statusEl.textContent = `พิกัดปัจจุบัน lat=${latitude.toFixed(6)}, lng=${longitude.toFixed(6)} (±${Math.round(accuracy)} m)`;
+
+        const payload = {
+          classId: Number(classSel.value),
+          studentId: $('#studentId').value.trim() || 'UNKNOWN',
+          latitude, longitude
+        };
+
+        const res = await fetch('/api/attendance/check', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        if (!res.ok) throw new Error('เรียก API ไม่สำเร็จ: ' + res.status);
+        const data = await res.json();
+
+        resultEl.innerHTML = `\nผลลัพธ์: ${data.withinRadius ? '<span class="ok">อยู่ในรัศมี ✔</span>' : '<span class="bad">อยู่นอกรัศมี ✖</span>'}\n`+
+          `\nclassId=${data.classId} (${data.className})`+
+          `\nระยะห่าง ≈ ${Math.round(data.distanceMeters)} m / อนุญาต ${Math.round(data.allowedRadius)} m`+
+          `\nสถานะ: ${data.status}`;
+
+      } catch (err) {
+        console.error(err);
+        statusEl.textContent = 'เกิดข้อผิดพลาด: ' + (err.message || err);
+        resultEl.textContent = '';
+      }
+    }
+
+    btn.addEventListener('click', checkin);
+    loadClassrooms();
+  </script>
+</body>
+</html>
