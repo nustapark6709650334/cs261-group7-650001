@@ -3,7 +3,7 @@
   --black:#000000;
   --white:#ffffff;
   --gray:#808080;
-
+}
 *{
   box-sizing:border-box;
 }
@@ -15,7 +15,7 @@ html,body{
   color:#222;
 }
 
-/* Top bar */
+/* Top bar จ้า */
 .topbar{
   background:var(--gray);
   border:4px solid var(--gray);
@@ -30,4 +30,36 @@ html,body{
 }
 .topbar h1{
   margin:0;
+}
+.container{
+  max-width:960px;
+  margin:24px auto;
+  padding:0 16px;
+}
+/* Title Card จ้า */
+.title-card{
+  background:var(--gray);
+  border:1px solid var(--gray);
+  border-radius:12px;
+  padding:18px;
+  text-align:center;
+  margin:18px 0;
+}
+.title-card h2{
+  margin:0 0 12px 0;
+}
+.title-card .btn{
+  display:inline-block;
+}
+
+/* Buttons จ้า*/
+.btn{
+  padding:8px 18px;
+  border-radius:8px;
+  border:none;
+  cursor:pointer;
+}
+.btn--dark{
+  background:#2d2f36;
+  color:#fff;
 }
