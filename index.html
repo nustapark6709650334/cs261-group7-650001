@@ -9,22 +9,26 @@
 </head>
 
 <body>
-  <header class="topbar"> <!-- ส่วน Topbar จ้า -->
-    <div class="topbar__inner">
-      <h1>CSTU COURSES EXPLORER</h1>
-    </div>
+  <header class="topbar">
+    <h1>CSTU COURSES EXPLORER</h1>
   </header>
 
   <main class="container"> <!-- main เนื้อหาเว็บ จ้า -->
-    <section><input type="text" id="search-input" placeholder="ป้อนชื่อวิชา หรือรหัสวิชา...">
+
+    <section><!-- search bar -->
+      <form class="searchbar" action="#" onsubmit="return false">
+        <input type="text" id="search-input" placeholder="ป้อนชื่อวิชา หรือรหัสวิชา...">
+        <button class="btn btn--search" aria-label="ค้นหา">search</button>
+      </form>
       <div id="search-results"></div>
     </section>
-    <section class="title-card">
+
+    <section class="title-card"><!-- ส่วนรายละเอียดหลักสูตรมีเฉพาะ index -->
       <h2>รายละเอียดหลักสูตร</h2>
       <button class="btn btn--dark">คลิก</button>
     </section>
 
-    <section class="card">
+    <section class="card"><!-- เนื้อหาในเว็บ -->
       <H3>เกณฑ์รับสมัครเข้าแผนสหกิจ</H3>
       <ol class="">
         <li>
@@ -93,7 +97,7 @@
 
   </main>
 
-  <footer class="footer">
+  <footer class="footer"><!-- ส่วนติดต่อข้อมูล -->
     <div class="footer__inner">
 
       <div class="fcol left">
