@@ -109,6 +109,58 @@ html,body{
   margin: .2rem 0 .8rem 0;
 }
 
+/* Header: ปุ่มซ้าย + หัวข้อกลางจริง ๆ + ช่องว่างขวา */
+.toppage{
+  display: grid;
+  grid-template-columns: 120px 1fr 120px; /* ซ้าย=ปุ่ม, กลาง=หัวข้อ, ขวา=สเปเซอร์ */
+  align-items: center;
+  column-gap: 16px;
+  padding: 24px 16px;
+}
+
+.toppage nav{
+  grid-column: 1;
+  grid-row: 1;
+  justify-self: start;
+}
+
+.toppage h2{
+  grid-column: 2;   /* วางหัวข้อไว้คอลัมน์กลาง */
+  grid-row: 1;
+  margin: 0;
+  text-align: center;
+}
+
+.toppage p{
+  grid-column: 1 / -1; /* ซับไตเติลกินทั้งแถวถัดไปและจัดกึ่งกลาง */
+  grid-row: 2;
+  margin: 8px 0 0;
+  text-align: center;
+}
+
+.btn-back{
+  width: auto;
+  height: 36px;
+  padding: 6px 14px;
+  margin: 0;
+  border-radius: 7px;
+  border: none;
+  cursor: pointer;
+}
+
+.course-card{
+  text-align: center;
+
+  background:var(--gray);
+  border:1px solid var(--gray);
+  border-radius:12px;
+  padding:18px;
+  margin:18px 0;
+}
+.card h3{
+  margin:0 0 12px 0;
+}
+}
 
 @media(max-width: 768px) {
   .footer__inner {
