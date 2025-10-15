@@ -7,26 +7,30 @@ import lombok.AllArgsConstructor;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "courses")
 public class Course {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column(name = "course_code", nullable = false, unique=true)
+
+	@Column(name = "course_code", nullable = false, unique = true, columnDefinition = "NVARCHAR(255)")
 	private String courseCode;
-	@Column(name = "course_name", nullable = false)
+
+	@Column(name = "course_name", nullable = false, columnDefinition = "NVARCHAR(255)")
 	private String courseName;
-	@Column(name = "course_detail", nullable = false)
+
+	@Lob
+	@Column(name = "course_detail", nullable = false, columnDefinition = "NVARCHAR(MAX)")
 	private String courseDetail;
-	@Column(name = "course_group", nullable = false)
+
+	@Column(name = "course_group", nullable = false, columnDefinition = "NVARCHAR(100)")
 	private String courseGroup;
+
 	@Column(name = "credit", nullable = false)
 	private int credit;
-	public Course() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	
 	public Course(String courseCode, String courseName,String courseDetail, String courseGroup,int credit) {
 		this.courseCode = courseCode;
 		this.courseName = courseName;
