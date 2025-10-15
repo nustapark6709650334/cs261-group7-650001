@@ -83,14 +83,22 @@ body {
   display: inline-block;
 }
 
-/* การ์ดเนื้อหา */
-.card,
-.course-card {
+/* การ์ดเนื้อหา ใช้หน้า indexกับ courses*/
+.card {
   background: #fff;
   border: 0;
   border-radius: var(--radius);
   padding: 22px;
   text-align: left;
+  margin: 22px 0;
+  box-shadow: var(--shadow-md);
+}
+.course-card{
+  background: #fff;
+  border: 0;
+  border-radius: var(--radius);
+  padding: 22px;
+  text-align: center;
   margin: 22px 0;
   box-shadow: var(--shadow-md);
 }
@@ -141,6 +149,7 @@ body {
   transform: translateY(1px);
 }
 
+/* ปุ่มหลักสูตรจ้า */
 .btn--dark {
   background: var(--red);
   color: var(--white);
@@ -178,7 +187,7 @@ body {
   text-align: center;
   color: #111827;
 }
-
+/* ปุ่มย้อนกลับ */
 .btn-back {
   width: auto;
   height: 36px;
@@ -187,8 +196,8 @@ body {
   border-radius: 999px;
   border: 0;
   cursor: pointer;
-  background: #fff;
-  color: var(--red);
+  background:var(--red);
+  color: var(--white);
   box-shadow: var(--shadow-sm);
 }
 
