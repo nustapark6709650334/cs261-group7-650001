@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 
-<body>
+<body class="curriculum">
 
     <header class="toppage">
         <nav aria-label="navigation">
@@ -21,53 +21,44 @@
 
     <main class="container">
 
-        <details class="card" open><!-- ปี 1 ค้าบทำได้เลย-->
-            <summary class="accordion-title">
-                ปีการศึกษา 1
-            </summary>
-            <section class="course-card" aria-labelledby="y1s1">
-                <h3 id="y1s1">ปีการศึกษา 1 (ภาคเรียนที่ 1)</h3>
-                <div class="course-list">
-
+        <!-- ปี 1 -->
+        <section class="accord">
+            <details class="accord-item" open>
+                <summary class="accord-summary">
+                    ปีการศึกษา 1
+                    <i class="chev" aria-hidden="true"></i>
+                </summary>
+                <div class="accord-body">
+                    <table class="course-list" aria-label="รายวิชาปี 1">
+                        <thead>
+                            <tr>
+                                <th style="width:110px;">รหัสวิชา</th>
+                                <th>ชื่อวิชา</th>
+                                <th style="width:70px;">หน่วยกิต</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="subject">คพ.100</span></td>
+                                <td>คอมพิวเตอร์พื้นฐานและการโปรแกรมเบื้องต้น</td>
+                                <td><span class="badge-sks">3</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="subject">คพ.101</span></td>
+                                <td>โครงสร้างข้อมูลเบื้องต้น</td>
+                                <td><span class="badge-sks">3</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="subject">คพ.102</span></td>
+                                <td>การโปรแกรมเชิงวัตถุ</td>
+                                <td><span class="badge-sks">3</span></td>
+                            </tr>
+                            <!-- …เติมตามโครงจริงได้ -->
+                        </tbody>
+                    </table>
                 </div>
-            </section>
-        </details>
-
-        <details class="card" close><!-- ปี 2 ค้าบทำได้เลย-->
-            <summary class="accordion-title">
-                ปีการศึกษา 2
-            </summary>
-            <section class="course-card" aria-labelledby="y2s1">
-                <h3 id="y1s1">ปีการศึกษา 2 (ภาคเรียนที่ 1)</h3>
-                <div class="course-list">
-                </div>
-            </section>
-        </details>
-
-        <details class="card" close><!-- ปี 3 ค้าบทำได้เลย-->
-            <summary class="accordion-title">
-                ปีการศึกษา 3
-            </summary>
-            <section class="course-card" aria-labelledby="y3s1">
-                <h3 id="y1s1">ปีการศึกษา 3 (ภาคเรียนที่ 1)</h3>
-                <div class="course-list">
-                </div>
-            </section>
-        </details>
-
-        <details class="card" close><!-- ปี 4 ค้าบทำได้เลย-->
-            <summary class="accordion-title">
-                ปีการศึกษา 4
-            </summary>
-            <section class="course-card" aria-labelledby="y4s1">
-                <h3 id="y1s1">ปีการศึกษา 4 (ภาคเรียนที่ 1)</h3>
-                <div class="course-list">
-
-
-                </div>
-
-            </section>
-        </details>
+            </details>
+        </section>
 
 
 
