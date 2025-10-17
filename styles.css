@@ -292,7 +292,7 @@ body {
 
 /* กล่อง Accordion หลัก (ปี 1–4) */
 .curriculum .accord {
-  background: rgba(255,255,255,.88);
+  background: #fff;
   border-radius: var(--radius);
   box-shadow: var(--shadow-md);
   padding: 0;
@@ -300,6 +300,7 @@ body {
   overflow: hidden;
   backdrop-filter: blur(2px);
 }
+.curriculum .sub-body { background: transparent; }
 
 /* ใช้ native <details> เพื่อ a11y + keyboard friendly */
 .curriculum details.accord-item {
