@@ -4,9 +4,6 @@ package com.example.demo.model;
 import java.util.List;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
 
 @Entity
 public class Course {
