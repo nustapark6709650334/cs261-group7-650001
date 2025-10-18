@@ -39,4 +39,5 @@ public class Course {
 		this.credit = credit;
 	}
 
+
 }
