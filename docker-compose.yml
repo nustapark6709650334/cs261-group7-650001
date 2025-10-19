@@ -1,33 +1,38 @@
+# กำหนดเวอร์ชันของ Docker Compose
 version: '3.8'
 
+# "services" คือ "container" ที่เราจะรัน
 services:
-  # === Spring Boot App Service ===
-  app:
-    build: .
-    container_name: spring-boot-app
-    ports:
-      - "8081:8081" # <-- เปลี่ยน Port ให้ตรงกับแอปพลิเคชันของคุณ
-    environment:
-      # Override ค่าใน application.properties เพื่อให้เชื่อมต่อกับ DB Container
-      # **สำคัญมาก: เปลี่ยนจาก localhost เป็น 'db' ซึ่งเป็นชื่อ service ของเรา**
-      - SPRING_DATASOURCE_URL=jdbc:sqlserver://db:1433;databaseName=myDB1;encrypt=true;trustServerCertificate=true;
-      - SPRING_DATASOURCE_USERNAME=sa
-      - SPRING_DATASOURCE_PASSWORD=YourStrong@Passw0rd # <-- ใส่รหัสผ่านเดียวกับที่ตั้งให้ DB
-    depends_on:
-      - db
-
-  # === Database Server Service (Microsoft SQL Server) ===
-  db:
-    image: mcr.microsoft.com/mssql/server:2022-latest # <-- ใช้ Image ของ MS SQL Server
+  
+  # 1. Container ฐานข้อมูล
+  mssql-db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: mssql-db
-    ports:
-      - "1433:1433"
     environment:
-      # **จำเป็นมาก** สำหรับ Image ของ MS SQL Server
-      ACCEPT_EULA: "Y" # <-- ต้องยอมรับ license
-      SA_PASSWORD: "YourStrong@Passw0rd" # <-- ตั้งรหัสผ่านที่นี่
-    volumes:
-      - db-data:/var/opt/mssql
+      ACCEPT_EULA: 'Y'
+      SA_PASSWORD: 'YourStrong@Passw0rd' # <--- ใส่รหัสผ่าน DB ของคุณ
+    ports:
+      - "1433:1433" # <--- แมปพอร์ต DB
+    networks:
+      - my-app-network
 
-volumes:
-  db-data:
+  # 2. Container แอป Java ของคุณ
+  courses-api:
+    image: fnfo/cstu-courses-api:1.0 # <--- ใช้ Image ที่คุณ PUSH ขึ้น Docker Hub
+    container_name: courses-container
+    ports:
+      - "8081:8081" # <--- แมปพอร์ตแอป
+    environment:
+      # ชี้ DB URL ไปที่ "ชื่อ service" ของ DB (คือ mssql-db)
+      SPRING_DATASOURCE_URL: 'jdbc:sqlserver://mssql-db:1433;databaseName=myDB1;trustServerCertificate=true'
+      SPRING_DATASOURCE_USERNAME: 'sa'
+      SPRING_DATASOURCE_PASSWORD: 'YourStrong@Passw0rd' # <--- ใส่รหัสผ่าน DB เดียวกัน
+    networks:
+      - my-app-network
+    depends_on:
+      - mssql-db # <--- (สำคัญ!) สั่งให้รอ DB พร้อมทำงานก่อน
+
+# กำหนด "เครือข่าย" ที่เราสร้างไว้
+networks:
+  my-app-network:
+    driver: bridge # (หรือถ้าเคยสร้างไว้แล้ว ก็ใช้ external: true)
