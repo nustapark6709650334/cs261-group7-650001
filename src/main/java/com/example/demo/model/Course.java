@@ -1,50 +1,33 @@
 package com.example.demo.model;
 
-
-import java.util.List;
-
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
+@Table(name = "courses")
 public class Course {
 
-    @Id
-    @Column(name = "course_code") 
-    private String courseCode;
+	@Id
+	@Column(name = "course_code", nullable = false, unique = true, columnDefinition = "NVARCHAR(255)")
+	private String courseCode;
 
-    @Column(name = "course_name")
-    private String courseName;
+	@Column(name = "course_name", nullable = false, columnDefinition = "NVARCHAR(255)")
+	private String courseName;
 
-    @Column(name = "credit")
-    private int credit;
+	@Lob
+	@Column(name = "course_detail", nullable = false, columnDefinition = "NVARCHAR(MAX)")
+	private String courseDetail;
 
-    @Column(name = "course_detail", length = 1000)
-    private String courseDetail;
+	@Column(name = "course_group", nullable = false, columnDefinition = "NVARCHAR(100)")
+	private String courseGroup;
 
-    @Column(name = "course_group")
-    private String courseGroup;
-    
-    // --- Prerequisite/Next Course ---
-    @ElementCollection
-    private List<String> prerequisites; // วิชาที่ต้องเรียนก่อน
+	@Column(name = "credit", nullable = false)
+	private int credit;
 
-    @ElementCollection
-    private List<String> nextCourses; // วิชาต่อยอด
- 
 
-    // --- สร้าง Getters and Setters สำหรับ field ทั้งหมด ---
-    public String getCourseCode() { return courseCode; }
-    public void setCourseCode(String courseCode) { this.courseCode = courseCode; }
-    public String getCourseName() { return courseName; }
-    public void setCourseName(String courseName) { this.courseName = courseName; }
-    public int getCredit() { return credit; }
-    public void setCredit(int credit) { this.credit = credit; }
-    public String getCourseDetail() { return courseDetail; }
-    public void setCourseDetail(String courseDetail) { this.courseDetail = courseDetail; }
-    public String getCourseGroup() { return courseGroup; }
-    public void setCourseGroup(String courseGroup) { this.courseGroup = courseGroup; }
-    public List<String> getPrerequisites() { return prerequisites; }
-    public void setPrerequisites(List<String> prerequisites) { this.prerequisites = prerequisites; }
-    public List<String> getNextCourses() { return nextCourses; }
-    public void setNextCourses(List<String> nextCourses) { this.nextCourses = nextCourses; }
 }

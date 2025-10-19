@@ -206,7 +206,7 @@ body {
   padding: 40px 0;
   background:
     linear-gradient(rgba(0, 0, 0, .45), rgba(0, 0, 0, .45)),
-    url("resources/footer_1.jpg") center/cover no-repeat;
+    url("footer_1.jpg") center/cover no-repeat;
   color: #fff;
   box-shadow: 0 12px 28px rgba(0, 0, 0, .18);
 }
