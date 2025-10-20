@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const backButton = document.querySelector('.btn-back');
     if (backButton) {
         backButton.addEventListener('click', () => {
-            history.back(); // สั่งให้ย้อนกลับไปหน้าก่อนหน้า
+            window.location.href = 'index.html'; // สั่งให้ย้อนกลับไปหน้าก่อนหน้า
         });
     }
 
@@ -52,18 +52,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 searchResultsDiv.style.display = 'block';
 
                 if (courses.length === 0) {
-                    searchResultsDiv.innerHTML = '<div class="search-item">ไม่พบรายวิชา</div>';
+                    searchResultsDiv.innerHTML = '<div class="no-results">ไม่พบรายวิชา</div>';
                     return;
                 }
-                courses.forEach(course => {
-                    const courseEl = document.createElement('div');
-                    courseEl.className = 'search-item';
-                    courseEl.textContent = `${course.courseCode} - ${course.courseName}`;
-                    courseEl.addEventListener('click', () => {
-                        window.location.href = `courses-detail.html?course=${course.courseCode}`;
-                    });
-                    searchResultsDiv.appendChild(courseEl);
-                });
+				courses.forEach(course => {
+				    const courseEl = document.createElement('div');
+				    courseEl.className = 'result-item'; // <-- แก้ไข 1
+
+				    // แก้ไข 2: ใช้ innerHTML เพื่อสร้างโครงสร้างที่ถูกต้อง
+				    courseEl.innerHTML = `
+				    <span class="result-item__code">${course.courseCode}</span>
+				    <span class="result-item__name">${course.courseName}</span>
+				                    `;
+				                    
+				    courseEl.addEventListener('click', () => {
+				       window.location.href = `courses-detail.html?course=${course.courseCode}`;
+				                    });
+				    searchResultsDiv.appendChild(courseEl);
+				                });
             } catch (error) {
                 searchResultsDiv.innerHTML = '<div class="search-item error">เกิดข้อผิดพลาดในการค้นหา</div>';
             }

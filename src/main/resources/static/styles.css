@@ -71,7 +71,7 @@ body {
   box-shadow: var(--shadow-md);
   background:
     linear-gradient(rgba(0, 0, 0, .45), rgba(0, 0, 0, .45)),
-    url("resources/ิbutton-bg.jpg") center/cover no-repeat;
+    url("ิbutton-bg.jpg") center/cover no-repeat;
 }
 
 .title-card h2 {
@@ -438,4 +438,88 @@ body {
 /* ทำให้ subject ชิปเดิมเข้ากับบรรทัด */
 .curriculum .subject {
   margin-top: 2px;
+}
+
+
+/* ชิปวิชา */
+.subject {
+    display: inline-block;
+    padding: 4px 10px;
+    margin: 0 4px 6px 0;
+    background: #f3f4f6;
+    border: 1px solid #e5e7eb;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: .9rem;
+    color: #0f172a;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .6);
+    cursor: pointer; /* เพิ่ม cursor pointer เพื่อบอกว่าคลิกได้ */
+    transition: all 0.2s ease-in-out; /* เพิ่ม transition เพื่อความนุ่มนวล */
+}
+
+/* hover */
+.subject:hover {
+    background-color: var(--red); 
+    color: var(--white); 
+    border-color: var(--red); 
+    transform: translateY(-2px); 
+    box-shadow: var(--shadow-sm); 
+}
+
+/* ===== Search Results Styling ===== */
+
+#search-results {
+  margin-top: 16px; 
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* การ์ดของผลการค้นหาแต่ละรายการ */
+.result-item {
+  display: flex;
+  align-items: center;
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid transparent;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+/* เอฟเฟกต์เมื่อนำเมาส์ไปวางบนรายการ */
+.result-item:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--red);
+}
+
+/* ส่วนของรหัสวิชา */
+.result-item__code {
+  background-color: var(--red);
+  color: var(--white);
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: 999px;
+  margin-right: 16px;
+  font-size: 0.95rem;
+}
+
+/* ส่วนของชื่อวิชา */
+.result-item__name {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--text);
+}
+
+/* ข้อความแจ้งเมื่อไม่พบผลลัพธ์ */
+.no-results {
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--muted);
+    padding: 20px;
+    border-radius: var(--radius);
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    margin-top: 16px;
 }
