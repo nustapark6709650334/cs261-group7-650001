@@ -11,17 +11,20 @@ services:
     environment:
       ACCEPT_EULA: 'Y'
       SA_PASSWORD: 'YourStrong@Passw0rd' # <--- ใส่รหัสผ่าน DB ของคุณ
+      MSSQL_PID: 'Express' # <--- สามารถเปลี่ยนเป็น Developer หรือ Edition อื่นๆ ได้
     ports:
-      - "1433:1433" # <--- แมปพอร์ต DB
+      - "1433:1433"
+    volumes:
+      - ./init:/docker-entrypoint-initdb.d # <--- (เพิ่ม) แมปโฟลเดอร์ init เพื่อรันสคริปต์ .sql
     networks:
       - my-app-network
 
   # 2. Container แอป Java ของคุณ
   courses-api:
-    image: fnfo/cstu-courses-api:1.0 # <--- ใช้ Image ที่คุณ PUSH ขึ้น Docker Hub
+    image: fnfo/demo1-g7:Sprint1 # <--- ใช้ Image ที่คุณ PUSH ขึ้น Docker Hub
     container_name: courses-container
     ports:
-      - "8081:8081" # <--- แมปพอร์ตแอป
+      - "8081:8081"
     environment:
       # ชี้ DB URL ไปที่ "ชื่อ service" ของ DB (คือ mssql-db)
       SPRING_DATASOURCE_URL: 'jdbc:sqlserver://mssql-db:1433;databaseName=myDB1;trustServerCertificate=true'
@@ -35,4 +38,4 @@ services:
 # กำหนด "เครือข่าย" ที่เราสร้างไว้
 networks:
   my-app-network:
-    driver: bridge # (หรือถ้าเคยสร้างไว้แล้ว ก็ใช้ external: true)
+    driver: bridge
