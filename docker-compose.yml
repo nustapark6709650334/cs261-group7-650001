@@ -1,4 +1,3 @@
-# บรรทัด "version: '3.8'" ถูกลบออกไปแล้ว
 services:
   
   mssql-db:
