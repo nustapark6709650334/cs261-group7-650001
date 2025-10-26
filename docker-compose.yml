@@ -1,33 +1,35 @@
-version: '3.8'
-
 services:
-  # === Spring Boot App Service ===
-  app:
-    build: .
-    container_name: spring-boot-app
-    ports:
-      - "8081:8081" # <-- เปลี่ยน Port ให้ตรงกับแอปพลิเคชันของคุณ
-    environment:
-      # Override ค่าใน application.properties เพื่อให้เชื่อมต่อกับ DB Container
-      # **สำคัญมาก: เปลี่ยนจาก localhost เป็น 'db' ซึ่งเป็นชื่อ service ของเรา**
-      - SPRING_DATASOURCE_URL=jdbc:sqlserver://db:1433;databaseName=myDB1;encrypt=true;trustServerCertificate=true;
-      - SPRING_DATASOURCE_USERNAME=sa
-      - SPRING_DATASOURCE_PASSWORD=YourStrong@Passw0rd # <-- ใส่รหัสผ่านเดียวกับที่ตั้งให้ DB
-    depends_on:
-      - db
-
-  # === Database Server Service (Microsoft SQL Server) ===
-  db:
-    image: mcr.microsoft.com/mssql/server:2022-latest # <-- ใช้ Image ของ MS SQL Server
+  
+  mssql-db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: mssql-db
+    environment:
+      ACCEPT_EULA: 'Y'
+      SA_PASSWORD: 'YourStrong@Passw0rd'
+      MSSQL_PID: 'Express'
     ports:
       - "1433:1433"
-    environment:
-      # **จำเป็นมาก** สำหรับ Image ของ MS SQL Server
-      ACCEPT_EULA: "Y" # <-- ต้องยอมรับ license
-      SA_PASSWORD: "YourStrong@Passw0rd" # <-- ตั้งรหัสผ่านที่นี่
     volumes:
-      - db-data:/var/opt/mssql
+      - ./init:/docker-entrypoint-initdb.d
+    networks:
+      - my-app-network
 
-volumes:
-  db-data:
+  courses-api:
+    image: fnfo/demo1-g7:Sprint1
+    container_name: courses-container
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_DATASOURCE_URL: 'jdbc:sqlserver://mssql-db:1433;databaseName=myDB1;trustServerCertificate=true'
+      SPRING_DATASOURCE_USERNAME: 'sa'
+      SPRING_DATASOURCE_PASSWORD: 'YourStrong@Passw0rd'
+    networks:
+      - my-app-network
+    depends_on:
+      - mssql-db
+
+networks:
+  my-app-network:
+    driver: bridge
+
+
