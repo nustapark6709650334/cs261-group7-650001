@@ -460,6 +460,7 @@ body.login-page {
   padding: 12px 0;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   flex-shrink: 0; 
+   background: linear-gradient(to right, #C3002F, #78021E);
 }
 
 .login-header__inner {
@@ -473,6 +474,7 @@ body.login-page {
 .login-header__logo {
   height: auto; /* ปรับขนาดโลโก้ตามความเหมาะสม */
   width: auto;
+  padding-left: 5%;
 }
 
 .login-header__title {
