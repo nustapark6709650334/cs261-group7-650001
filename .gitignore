@@ -31,4 +31,9 @@ build/
 
 ### VS Code ###
 .vscode/
-bin//ntarget//n
+
+# macOS specific
+*.DS_Store
+
+# Build output
+/bin/
