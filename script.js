@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const backButton = document.querySelector('.btn-back');
     if (backButton) {
         backButton.addEventListener('click', () => {
-            history.back(); // สั่งให้ย้อนกลับไปหน้าก่อนหน้า
+            window.location.href = 'main.html'; // สั่งให้ย้อนกลับไปหน้าหลัก (main.html)
         });
     }
 
