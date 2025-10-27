@@ -471,16 +471,15 @@ body.login-page {
 }
 
 .login-header__logo {
-  height: 40px; /* ปรับขนาดโลโก้ตามความเหมาะสม */
+  height: auto; /* ปรับขนาดโลโก้ตามความเหมาะสม */
   width: auto;
-  filter: brightness(0) invert(1); /* ทำให้โลโก้เป็นสีขาว */
 }
 
 .login-header__title {
   color: var(--white);
-  font-size: 1.1rem;
+  font-size: 1.5rem;
   font-weight: 500;
-  margin-left: 16px;
+  padding-left: 50px;
   letter-spacing: 0.5px;
 }
 
