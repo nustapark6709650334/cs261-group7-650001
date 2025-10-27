@@ -31,3 +31,9 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# macOS specific
+*.DS_Store
+
+# Build output
+/bin/
