@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     alert('เข้าสู่ระบบสำเร็จ!');
                     
                     // ไปยังหน้า index.html
-                    window.location.href = 'index.html';
+                    window.location.href = 'main.html';
 
                 } else {
                     // 5.2 ถ้า Backend ตอบกลับมาว่า Error (เช่น รหัสผ่านผิด)
