@@ -439,3 +439,47 @@ body {
 .curriculum .subject {
   margin-top: 2px;
 }
+
+/* 1. ตั้งค่า Body ของหน้าล็อกอิน */
+body.login-page {
+  /* ใช้รูปพื้นหลังที่คุณมี (footer_1.jpg) 
+    และยกเลิก background-gradient ที่มีผลกับหน้าอื่น
+  */
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    url("resources\\footer_1.jpg") center/cover no-repeat;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 2. แถบ Header สีแดง */
+.login-header {
+  width: 100%;
+  background-color: var(--red); 
+  padding: 12px 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  flex-shrink: 0; 
+}
+
+.login-header__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+}
+
+.login-header__logo {
+  height: 40px; /* ปรับขนาดโลโก้ตามความเหมาะสม */
+  width: auto;
+  filter: brightness(0) invert(1); /* ทำให้โลโก้เป็นสีขาว */
+}
+
+.login-header__title {
+  color: var(--white);
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-left: 16px;
+  letter-spacing: 0.5px;
+}
