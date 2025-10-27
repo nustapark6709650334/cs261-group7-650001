@@ -483,3 +483,57 @@ body.login-page {
   margin-left: 16px;
   letter-spacing: 0.5px;
 }
+
+.login-container {
+  display: flex;
+  flex: 1; /* ให้ยืดเต็มพื้นที่ที่เหลือ */
+  align-items: center;
+  justify-content: center;
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 24px;
+  gap: 48px;
+}
+
+/* 4. ส่วน Hero (ฝั่งซ้าย) */
+.login-hero {
+  flex-basis: 50%;
+  color: var(--white);
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.login-hero h1 {
+  font-size: 3.5rem; /* 56px */
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0 0 16px;
+}
+
+.login-hero p {
+  font-size: 1.25rem; /* 20px */
+  font-weight: 300;
+  opacity: 0.9;
+}
+
+/* 5. การ์ดล็อกอิน (ฝั่งขวา) */
+.login-card {
+  flex-basis: 40%;
+  max-width: 420px;
+  background: var(--white);
+  border-radius: var(--radius); /* ใช้ตัวแปร radius จากไฟล์เดิม */
+  box-shadow: var(--shadow-md); /* ใช้ตัวแปร shadow จากไฟล์เดิม */
+  padding: 32px 40px;
+}
+
+.login-card h2 {
+  text-align: center;
+  font-size: 1.75rem; /* 28px */
+  margin: 0 0 8px;
+}
+
+.login-card__subtitle {
+  text-align: center;
+  color: var(--muted);
+  margin: 0 0 24px;
+}
