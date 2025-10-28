@@ -18,7 +18,8 @@ body {
   padding: 0;
   font-family: "Kanit", system-ui, -apple-system, "Segoe UI", sans-serif;
   color: var(--text);
-  background: linear-gradient(to bottom, #5D0016 0%, #900023 30%, #C76931 65%, #D58334 80%, #E39D38 87%, #FFD13F 100%);
+  /*background: linear-gradient(to bottom, #5D0016 0%, #900023 30%, #C76931 65%, #D58334 80%, #E39D38 87%, #FFD13F 100%); */
+  background: linear-gradient(to bottom, #C2012F 0%, #79021F 100%); /* แก้สีพื้นหลังใหม่ Sprint2 */
   min-height: 100vh;
 }
 
