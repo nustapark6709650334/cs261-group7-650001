@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>CSTU COURSES EXPLORER</title>
+    <link href="https://fonts.googleapis.com/css?family=Kanit:300,400,500,700&amp;subset=thai" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <header class="toppage">
+        <nav aria-label="navigation">
+            <button class="btn-back" onclick="history.back()">ย้อนกลับ</button>
+        </nav>
+        <h2 id="course-header">กำลังโหลดข้อมูล...</h2>
+        <p id="course-credit"></p>
+    </header>
+
+    <main class="container">
+        <section class="course-card">
+            <h3>รายละเอียดรายวิชา</h3>
+            <p id="course-description">กำลังโหลด...</p>
+        </section>
+
+        <section class="course-card">
+            <h3>วิชาบังคับก่อน (Prerequisite)</h3>
+            <div id="prerequisite-courses">
+                <p>กำลังโหลด...</p>
+            </div>
+        </section>
+
+        <section class="course-card">
+            <h3>วิชาตัวต่อ (Next Courses)</h3>
+            <div id="next-courses">
+                <p>กำลังโหลด...</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        </footer>
+    <script src="script.js"></script>
+</body>
+</html>
