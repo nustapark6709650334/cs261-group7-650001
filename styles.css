@@ -423,7 +423,7 @@ body {
 
 /* ปุ่มย้อนกลับเด่นขึ้นเล็กน้อย */
 .curriculum .btn-back {
-  background: linear-gradient(180deg, #c81e3a, #a70c2b);
+  background: linear-gradient(180deg, #c81e3a, #a70c2b);  
 }
 
 /* ระยะห่างรวมเพจ */
