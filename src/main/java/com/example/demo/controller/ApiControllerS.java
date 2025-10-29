@@ -10,7 +10,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = "*")
-public class ApiController {
+public class ApiControllerS {
 
     @Autowired
     private CourseRepositoryS courseRepositoryS;
