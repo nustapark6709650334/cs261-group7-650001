@@ -16,7 +16,7 @@ public class ApiControllerN {
     private CourseRepositoryN courseRepositoryN;
     
     // สำหรับค้นหาวิชา
-    @GetMapping("/courses")
+    @GetMapping("/coursesN")
     public List<CourseN> searchCourses(@RequestParam(required = false) String query) {
         if (query == null || query.isBlank()) {
             return courseRepositoryN.findAll();
@@ -25,7 +25,7 @@ public class ApiControllerN {
     }
     
     // สำหรับดูรายละเอียดวิชาเดียว
-    @GetMapping("/courses/{id}")
+    @GetMapping("/coursesN/{id}")
     public ResponseEntity<CourseN> getCourseById(@PathVariable String id) {
         return courseRepositoryN.findById(id)
                 .map(ResponseEntity::ok)
