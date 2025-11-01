@@ -15,29 +15,39 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     @Autowired
-    private JwtRequestFilter jwtRequestFilter; // Filter ที่เราสร้างเข้ามา
+    private JwtRequestFilter jwtRequestFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(csrf -> csrf.disable()) // ปิด CSRF เพราะเราใช้ JWT
-            .cors(cors -> {}) // อนุญาต CORS (ถ้าตั้งค่า @CrossOrigin ไว้ที่ Controller)
+            // 1. ปิด CSRF (จำเป็นสำหรับ Token-based)
+            .csrf(csrf -> csrf.disable()) 
+            .cors(cors -> {}) // (อนุญาต CORS ถ้าตั้งค่าไว้)
 
-            // กำหนดสิทธิ์การเข้าถึง
+            // 2. กำหนดสิทธิ์การเข้าถึง
             .authorizeHttpRequests(authz -> authz
-                // "อนุญาต" ให้ทุกคนเข้า Path นี้ได้ (ไม่ต้องใช้ Token)
-                .requestMatchers("/api/login").permitAll() 
                 
-                // "ต้องยืนยันตัวตน" (มี Token) สำหรับ Request อื่นๆ ทั้งหมด
+                // อนุญาตให้ทุกคนเข้าถึง API สำหรับ Login
+                .requestMatchers("/api/auth/login").permitAll() // <--- ใช้ Path จาก JS ของคุณ
+
+                // อนุญาตให้ทุกคนเข้าถึงไฟล์ Frontend
+                .requestMatchers(
+                        "/", 
+                        "/*.html", 
+                        "/js/**", 
+                        "/css/**", 
+                ).permitAll()
+                
+                // Path อื่นๆ ทั้งหมด (เช่น /api/courses) ต้องยืนยันตัวตน
                 .anyRequest().authenticated() 
             )
             
-            // ไม่ใช้ Session (เพราะเราใช้ Token)
+            // 3. ตั้งค่า Session เป็น STATELESS (เพราะเราใช้ Token)
             .sessionManagement(session -> session
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS) 
             );
 
-        // เพิ่ม Filter ของเราให้ทำงาน "ก่อน" Filter มาตรฐานของ Spring
+        // 4. เพิ่ม Filter ของเรา
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
