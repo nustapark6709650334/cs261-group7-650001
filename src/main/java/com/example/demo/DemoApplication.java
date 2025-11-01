@@ -12,9 +12,4 @@ public class DemoApplication { // หรือชื่อไฟล์หลั�
 		SpringApplication.run(DemoApplication.class, args);
 	}
 
-	// 3. เพิ่ม Method นี้เข้าไป
-	@Bean
-	public RestTemplate restTemplate() {
-    	return new RestTemplate();
-	}
 }
