@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // คุณต้องไปสร้าง API Endpoint ที่ Backend (ใน Spring Boot)
                 // เพื่อรับ POST request ที่ URL นี้ (เช่น /api/auth/login)
                 // 
-                const response = await fetch('http://localhost:8081/api/auth/login', {
+                const response = await fetch('/api/auth/login', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

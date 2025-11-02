@@ -32,10 +32,12 @@ public class SecurityConfig {
 
                 // อนุญาตให้ทุกคนเข้าถึงไฟล์ Frontend
                 .requestMatchers(
-                        "/", 
+                        "/",
+                        "/styles.css",
+                        "/photo/**",
                         "/*.html", 
-                        "/js/**", 
-                        "/css/**", 
+                        "/*.js", 
+                        "/*.css"
                 ).permitAll()
                 
                 // Path อื่นๆ ทั้งหมด (เช่น /api/courses) ต้องยืนยันตัวตน
