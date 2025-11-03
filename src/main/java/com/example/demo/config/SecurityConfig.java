@@ -37,7 +37,8 @@ public class SecurityConfig {
                         "/photo/**",
                         "/*.html", 
                         "/*.js", 
-                        "/*.css"
+                        "/*.css",
+                        "/favicon.ico"
                 ).permitAll()
                 
                 // Path อื่นๆ ทั้งหมด (เช่น /api/courses) ต้องยืนยันตัวตน
