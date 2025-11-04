@@ -3,6 +3,7 @@
   --text: #111827;
   --muted: #6b7280;
   --red: #c3002f;
+  --red2 : #6b0505;
   --shadow-sm: 0 2px 10px rgba(15, 23, 42, .08);
   --shadow-md: 0 12px 28px rgba(15, 23, 42, .18);
   --radius: 14px;
@@ -197,7 +198,7 @@ body {
   border-radius: 999px;
   border: 0;
   cursor: pointer;
-  background:var(--red);
+  background:var(--red2);
   color: var(--white);
   box-shadow: var(--shadow-sm);
 }
@@ -243,7 +244,7 @@ body {
 }
 
 .footer a {
-  color: #0b3a6f;
+  color: #ffc525;
   text-decoration: underline;
   text-underline-offset: 2px;
 }
@@ -423,7 +424,7 @@ body {
 
 /* ปุ่มย้อนกลับเด่นขึ้นเล็กน้อย */
 .curriculum .btn-back {
-  background: linear-gradient(180deg, #c81e3a, #a70c2b);  
+  background: #6b0505;  
 }
 
 /* ระยะห่างรวมเพจ */
@@ -630,4 +631,18 @@ body.login-page {
     width: 100%;
     max-width: 420px;
   }
+}
+
+.btn-logout {
+  background-color: #880000;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+
+  position: fixed;          /* ลอยคงที่ */
+  top: 16px;
+  right: 16px;
+  z-index: 1000;            /* กันถูกภาพ/ส่วนอื่นทับ */
 }
