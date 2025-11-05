@@ -37,3 +37,4 @@ build/
 
 # Build output
 /bin/
+/target/
