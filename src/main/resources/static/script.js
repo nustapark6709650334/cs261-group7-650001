@@ -171,7 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.removeItem('authToken');
 
             // redirect กลับไปหน้า login
-            window.location.href = 'login.html';
+            window.location.href = 'index.html';
         });
     }
 

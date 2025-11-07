@@ -5,6 +5,9 @@ import com.example.demo.dto.LoginResponse;
 import com.example.demo.dto.TuAuthResponse;
 import com.example.demo.service.JwtUtil;
 import com.example.demo.service.TuAuthService;
+
+import jakarta.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -56,16 +59,6 @@ public class LoginController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
         }
     }
+ 
 }   
 
-//log out
-@PostMapping("/logout")
-public ResponseEntity<String> logout(HttpServletRequest request) {
-    String authHeader = request.getHeader("Authorization");
-    if (authHeader != null && authHeader.startsWith("Bearer ")) {
-        String token = authHeader.substring(7);
-        blacklistedTokens.add(token);
-        return ResponseEntity.ok("Logout success");
-    }
-    return ResponseEntity.badRequest().body("No token found");
-}
