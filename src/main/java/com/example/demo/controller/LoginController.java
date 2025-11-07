@@ -56,4 +56,16 @@ public class LoginController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
         }
     }
+}   
+
+//log out
+@PostMapping("/logout")
+public ResponseEntity<String> logout(HttpServletRequest request) {
+    String authHeader = request.getHeader("Authorization");
+    if (authHeader != null && authHeader.startsWith("Bearer ")) {
+        String token = authHeader.substring(7);
+        blacklistedTokens.add(token);
+        return ResponseEntity.ok("Logout success");
+    }
+    return ResponseEntity.badRequest().body("No token found");
 }
