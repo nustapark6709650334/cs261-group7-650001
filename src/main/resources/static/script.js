@@ -1,10 +1,42 @@
+// =======================================================
+// === 1. (เพิ่ม) "ยาม FRONTEND" (ต้องอยู่บนสุด นอกสุด) ===
+// =======================================================
+const authToken = localStorage.getItem('authToken'); 
+
+if (!authToken) {
+    alert('คุณยังไม่ได้เข้าสู่ระบบ กรุณา Login ก่อนครับ');
+    window.location.href = 'index.html'; // เตะกลับไปหน้า Login (index.html)
+    throw new Error('Authentication required. Redirecting to login.');
+}
+// =======================================================
+
+
+// =======================================================
+// === 2. (เพิ่ม) Helper Functions (สำหรับ Security) ===
+// =======================================================
+function getAuthToken() {
+    return localStorage.getItem('authToken');
+}
+function getAuthHeaders() {
+    const token = getAuthToken();
+    const headers = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json' 
+    };
+    if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+    }
+    return headers;
+}
+// =======================================================
+
 // === รอให้หน้าเว็บโหลดเสร็จก่อนเริ่มทำงาน ===
 document.addEventListener('DOMContentLoaded', () => {
 
-    const API_URL = 'http://localhost:8081/api'; // ตรวจสอบ URL ของ API ให้ถูกต้อง
+    const API_URL = '/api'; // ตรวจสอบ URL ของ API ให้ถูกต้อง
 
     // ==========================================================
-    // === ส่วนที่ 1: ทำงานได้ "ทุกหน้า" (Universal Code)
+    // === ส่วนที่ 3: ทำงานได้ "ทุกหน้า" (Universal Code)
     // ==========================================================
 
     // --- 1. ทำให้ปุ่มย้อนกลับ (.btn-back) ทำงาน ---
@@ -32,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ==========================================================
-    // === ส่วนที่ 2: ทำงานเฉพาะในหน้า index.html
+    // === ส่วนที่ 4 ทำงานเฉพาะในหน้า index.html
     // ==========================================================
     const searchInput = document.getElementById('search-input');
     if (searchInput) {
@@ -45,7 +77,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
             try {
-                const response = await fetch(`${API_URL}/courses?query=${encodeURIComponent(query)}`);
+                const response = await fetch(`${API_URL}/courses?query=${encodeURIComponent(query)}`, { headers: getAuthHeaders() });
+                if (response.status === 401) {
+                    alert('Session หมดอายุ กรุณา Login ใหม่');
+                    localStorage.removeItem('authToken');
+                    window.location.href = 'index.html';
+                    return;
+                }
                 const courses = await response.json();
                 
                 searchResultsDiv.innerHTML = '';
@@ -92,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================
-    // === ส่วนที่ 3: ทำงานเฉพาะในหน้า courses-detail.html
+    // === ส่วนที่ 5: ทำงานเฉพาะในหน้า courses-detail.html
     // ==========================================================
     const courseHeader = document.getElementById('course-header');
     if (courseHeader) {
@@ -103,7 +141,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const fetchCourseDetails = async (id) => {
             try {
-                const response = await fetch(`${API_URL}/courses/${id}`);
+                // (โค้ดที่ถูกต้อง)
+                const response = await fetch(`${API_URL}/courses?query=${encodeURIComponent(query)}`, { headers: getAuthHeaders() });
+                if (response.status === 401) {
+                    alert('Session หมดอายุ กรุณา Login ใหม่');
+                    localStorage.removeItem('authToken');
+                    window.location.href = 'index.html';
+                    return;
+                }
                 if (!response.ok) throw new Error('ไม่สามารถโหลดข้อมูลวิชาได้');
                 const course = await response.json();
 

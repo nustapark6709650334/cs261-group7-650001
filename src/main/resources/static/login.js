@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const result = await response.json(); 
                     
                     // ตัวอย่าง: ถ้า Backend ส่ง token กลับมา
-                    // localStorage.setItem('authToken', result.token); 
+                    localStorage.setItem('authToken', result.token); 
                     
                     // แจ้งเตือนว่าสำเร็จ (หรือจะเปลี่ยนหน้าเลยก็ได้)
                     alert('เข้าสู่ระบบสำเร็จ!');
