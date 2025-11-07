@@ -161,11 +161,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
 //logout js//
 document.addEventListener('DOMContentLoaded', () => {
-    const logoutBtn = document.getElementById('logout-btn');
-    if (logoutBtn) {
-        logoutBtn.addEventListener('click', () => {
-            localStorage.removeItem('token');
+
+    const btnLogout = document.getElementById('btnLogout');
+
+    if (btnLogout) {
+        btnLogout.addEventListener('click', () => {
+
+            // ลบ token ที่เก็บไว้
+            localStorage.removeItem('authToken');
+
+            // redirect กลับไปหน้า login
             window.location.href = 'login.html';
         });
     }
+
 });
