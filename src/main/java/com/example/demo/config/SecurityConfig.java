@@ -41,6 +41,9 @@ public class SecurityConfig {
                         "/favicon.ico",
                         "/assets/**"   
                 ).permitAll()
+
+                // 3. (เพิ่ม) อนุญาต API ให้คนที่มี Token เข้าถึงได้ 
+                .requestMatchers("/api/coursesS/**", "/api/coursesN/**").authenticated()
                 
                 // Path อื่นๆ ทั้งหมด (เช่น /api/courses) ต้องยืนยันตัวตน
                 .anyRequest().authenticated() 
