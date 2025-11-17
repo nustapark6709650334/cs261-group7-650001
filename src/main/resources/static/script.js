@@ -151,8 +151,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
         
-}
-        
         let debounceTimer;
         searchInput.addEventListener('input', () => {
             clearTimeout(debounceTimer);
