@@ -122,17 +122,26 @@ document.addEventListener('DOMContentLoaded', () => {
                     searchResultsDiv.innerHTML = '<div class="search-item">ไม่พบรายวิชา</div>';
                     return;
                 }
+                
                 courses.forEach(course => {
                     const courseEl = document.createElement('div');
                     courseEl.className = 'search-item'; 
-                    courseEl.textContent = `${course.courseCode} - ${course.courseName}`;
+                    
+                    // [แก้ไขตรงนี้] : ดักจับชื่อตัวแปรทุกรูปแบบที่เป็นไปได้
+                    // ถ้า Backend ส่งมาเป็น courseCode (Java Standard) หรือ course_code (DB Style) ก็จะรับได้หมด
+                    const code = course.courseCode || course.course_code || course.id || "ไม่พบรหัส";
+                    const name = course.courseName || course.course_name || course.name || "ไม่พบชื่อวิชา";
+
+                    courseEl.textContent = `${code} - ${name}`;
                     
                     courseEl.addEventListener('click', () => {
-                        window.location.href = `courses-detail.html?course=${course.courseCode}`;
+                        // ส่งรหัสที่ถูกต้องไป
+                        window.location.href = `courses-detail.html?course=${code}`;
                     });
                     searchResultsDiv.appendChild(courseEl);
                 });
             } catch (error) {
+                console.error("Search Error:", error); // เพิ่ม log เพื่อดู error ใน console
                 searchResultsDiv.innerHTML = '<div class="search-item error">เกิดข้อผิดพลาด</div>';
             }
         };
@@ -140,7 +149,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const curriculumBtn = document.querySelector('.title-card .btn');
         if (curriculumBtn) {
             curriculumBtn.addEventListener('click', () => {
-                // เช็คว่าเรากำลังใช้ API สายไหนอยู่ (S หรือ N)
                 const currentMode = sessionStorage.getItem('currentApiMode'); 
 
                 if (currentMode === '/coursesN') {
