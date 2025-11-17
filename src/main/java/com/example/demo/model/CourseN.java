@@ -29,6 +29,9 @@ public class CourseN {
 	@Column(name = "course_permission", nullable = false, columnDefinition = "NVARCHAR(100)")
 	private String coursePermission;
 	
+	@Column(name = "course_next", nullable = false, columnDefinition = "NVARCHAR(100)")
+	private String courseNext;
+	
 	@Column(name = "credit", nullable = false)
 	private int credit;
 
