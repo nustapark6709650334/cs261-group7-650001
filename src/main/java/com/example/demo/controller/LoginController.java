@@ -47,14 +47,15 @@ public class LoginController {
                 "Login สำเร็จ",
                 tuResponse.getDisplayNameTh(),
                 tuResponse.getEmail(),
-                token // ส่ง Token กลับไป
+                token, // ส่ง Token กลับไป
+                tuResponse.getUsername()
             );
             return ResponseEntity.ok(successResponse);
         } else {
             // 5. ถ้าล้มเหลว
             LoginResponse errorResponse = new LoginResponse(
                 tuResponse.getMessage() != null ? tuResponse.getMessage() : "Username หรือ Password ไม่ถูกต้อง",
-                null, null, null // ไม่มี Token
+                null, null, null/* ไม่มี Token*/,null 
             );
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
         }

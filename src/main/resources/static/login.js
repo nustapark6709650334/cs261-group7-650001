@@ -21,13 +21,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 password: password
             };
 
-            // 4. ส่งข้อมูลไปที่ Backend (นี่คือส่วน "เก็บข้อมูล")
+            // 4. ส่งข้อมูลไปที่ Backend
             try {
-                // 
-                // *** หมายเหตุสำคัญ ***
-                // คุณต้องไปสร้าง API Endpoint ที่ Backend (ใน Spring Boot)
-                // เพื่อรับ POST request ที่ URL นี้ (เช่น /api/auth/login)
-                // 
                 const response = await fetch('/api/auth/login', {
                     method: 'POST',
                     headers: {
@@ -36,24 +31,61 @@ document.addEventListener('DOMContentLoaded', () => {
                     body: JSON.stringify(loginData)
                 });
 
+                // ========================================================
+                // === (5.1) นี่คือส่วนที่แก้ไข ตามโจทย์ของคุณ ===
+                // ========================================================
                 if (response.ok) {
                     // 5.1 ถ้าล็อกอินสำเร็จ
                     const result = await response.json(); 
+                    // result จะมีหน้าตาแบบนี้:
+                    // { "token": "...", "username": "57090001", "displayName": "..." }
                     
-                    // ตัวอย่าง: ถ้า Backend ส่ง token กลับมา
-                    localStorage.setItem('authToken', result.token); 
+                    // A. เก็บ Token ไว้ใน localStorage
+                    if (result.token) {
+                        localStorage.setItem('authToken', result.token); 
+                    }
                     
-                    // แจ้งเตือนว่าสำเร็จ (หรือจะเปลี่ยนหน้าเลยก็ได้)
-                    alert('เข้าสู่ระบบสำเร็จ!');
+                    // B. ดึง username ที่ได้จาก Backend
+                    const userCode = result.username; 
+
+                    // C. ตรวจสอบรหัส 2 ตัวกลาง (08 หรือ 09)
+                    if (userCode && userCode.length >= 4) {
+                        // ดึงอักขระตัวที่ 3 และ 4 (index ที่ 2 และ 3)
+                        const programCode = userCode.substring(4, 6); 
+
+                        if (programCode === '65') {
+                            // ไปหน้าภาคพิเศษ (อ้างอิงจากไฟล์ในรูปแรกของคุณ)
+                            alert('เข้าสู่ระบบสำเร็จ (ภาคพิเศษ)');
+                            window.location.href = 'main.html'; 
+                        
+                        } else if (programCode === '61') {
+                            // ไปหน้าภาคปกติ (อ้างอิงจากไฟล์ในรูปแรกของคุณ)
+                            alert('เข้าสู่ระบบสำเร็จ (ภาคปกติ)');
+                            window.location.href = 'mainNormal.html';
+                        
+                        } else {
+                            // กรณีอื่นๆ (เช่น รหัสไม่ตรงเงื่อนไข หรือเป็น admin/staff)
+                            alert('เข้าสู่ระบบสำเร็จ');
+                            window.location.href = 'index.html'; // ไปหน้าหลัก
+                        }
                     
-                    // ไปยังหน้า index.html
-                    window.location.href = 'main.html';
+                    } else {
+                        // กรณีได้ username กลับมา แต่รูปแบบแปลกๆ
+                        console.error('Invalid username format received:', userCode);
+                        alert('เข้าสู่ระบบสำเร็จ (ไม่ทราบประเภท)');
+                        window.location.href = 'index.html'; // ไปหน้าหลัก
+                    }
 
                 } else {
                     // 5.2 ถ้า Backend ตอบกลับมาว่า Error (เช่น รหัสผ่านผิด)
                     const errorData = await response.json();
+                    
+                    // (เราแก้ไข Constructor ของ LoginResponse ให้ส่ง message กลับมา แม้จะล้มเหลว)
                     showError(errorData.message || 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง');
                 }
+                // ========================================================
+                // === จบส่วนที่แก้ไข ===
+                // ========================================================
 
             } catch (error) {
                 // 5.3 ถ้าเกิดข้อผิดพลาดในการเชื่อมต่อ (เช่น Backend ไม่ได้รัน)
