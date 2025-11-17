@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (backButton) {
         backButton.addEventListener('click', () => {
             // เช็คว่าจะย้อนกลับไปหน้าหลักอันไหน (S หรือ N)
-            if (endpoint === '/coursesN') window.location.href = 'mainNormal.html'; // (แก้ให้ตรงกับชื่อไฟล์จริงของคุณ)
+            if (endpoint === '/coursesN') window.location.href = 'mainNormal.html'; 
             else window.location.href = 'main.html'; 
         });
     }
@@ -136,6 +136,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 searchResultsDiv.innerHTML = '<div class="search-item error">เกิดข้อผิดพลาด</div>';
             }
         };
+
+        const curriculumBtn = document.querySelector('.title-card .btn');
+        if (curriculumBtn) {
+            curriculumBtn.addEventListener('click', () => {
+                // เช็คว่าเรากำลังใช้ API สายไหนอยู่ (S หรือ N)
+                const currentMode = sessionStorage.getItem('currentApiMode'); 
+
+                if (currentMode === '/coursesN') {
+                    window.location.href = 'curriculumNormal.html'; 
+                } else {
+                    window.location.href = 'curriculum.html'; 
+                }
+            });
+        }
+        
+}
         
         let debounceTimer;
         searchInput.addEventListener('input', () => {
