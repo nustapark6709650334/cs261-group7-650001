@@ -9,8 +9,8 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "courses")
-public class Course {
+@Table(name = "courses_N")
+public class CourseN {
 
 	@Id
 	@Column(name = "course_code", nullable = false, unique = true, columnDefinition = "NVARCHAR(255)")
@@ -26,6 +26,12 @@ public class Course {
 	@Column(name = "course_group", nullable = false, columnDefinition = "NVARCHAR(100)")
 	private String courseGroup;
 
+	@Column(name = "course_permission", nullable = false, columnDefinition = "NVARCHAR(100)")
+	private String coursePermission;
+	
+	@Column(name = "course_next", nullable = false, columnDefinition = "NVARCHAR(100)")
+	private String courseNext;
+	
 	@Column(name = "credit", nullable = false)
 	private int credit;
 

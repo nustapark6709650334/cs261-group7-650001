@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.Course;
-import com.example.demo.repository.CourseRepository;
+import com.example.demo.model.CourseN;
+import com.example.demo.repository.CourseRepositoryN;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,24 +10,24 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = "*")
-public class ApiController {
+public class ApiControllerN {
 
     @Autowired
-    private CourseRepository courseRepository;
+    private CourseRepositoryN courseRepositoryN;
     
     // สำหรับค้นหาวิชา
-    @GetMapping("/courses")
-    public List<Course> searchCourses(@RequestParam(required = false) String query) {
+    @GetMapping("/coursesN")
+    public List<CourseN> searchCourses(@RequestParam(required = false) String query) {
         if (query == null || query.isBlank()) {
-            return courseRepository.findAll();
+            return courseRepositoryN.findAll();
         }
-        return courseRepository.findByCourseNameContainingIgnoreCaseOrCourseCodeContainingIgnoreCase(query, query);
+        return courseRepositoryN.findByCourseNameContainingIgnoreCaseOrCourseCodeContainingIgnoreCase(query, query);
     }
     
     // สำหรับดูรายละเอียดวิชาเดียว
-    @GetMapping("/courses/{id}")
-    public ResponseEntity<Course> getCourseById(@PathVariable String id) {
-        return courseRepository.findById(id)
+    @GetMapping("/coursesN/{id}")
+    public ResponseEntity<CourseN> getCourseById(@PathVariable String id) {
+        return courseRepositoryN.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
