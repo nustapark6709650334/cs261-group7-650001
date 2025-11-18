@@ -61,6 +61,23 @@ body {
   margin-top: 8px;
 }
 
+.search-item {
+  padding: 8px 12px;
+  margin-bottom: 4px;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #b91c1c;               /* หรือสีตัวอักษรอื่น */
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,.08);
+}
+
+.search-item:hover {
+  background: #fee2e2;
+  transform: translateY(-1px);
+  transition: 0.15s ease;
+}
+
 /* title card (หน้า index) */
 .title-card {
   position: relative;

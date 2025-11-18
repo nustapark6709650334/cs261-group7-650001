@@ -93,16 +93,39 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('search-input');
     if (searchInput) {
         const searchResultsDiv = document.getElementById('search-results');
+	function normalizeSearchQuery(raw) {
+		    if (!raw) return '';
 
+		    let q = raw.trim();
+
+		    // รวมช่องว่างซ้ำ ๆ
+		    q = q.replace(/\s+/g, ' ');
+		    // แก้ "คพ. 101" → "คพ.101"
+		    q = q.replace(/(\.)\s+/g, '$1');
+
+		    // ถ้าขึ้นต้นด้วยคพ. ให้เปลี่ยนเป็น CS
+		    if (/^คพ\./i.test(q)) {
+		        q = q.replace(/^คพ\./i, 'CS');
+		    }
+
+		    // ถ้าขึ้นต้นด้วยคพ (ไม่มีจุด) ก็รองรับ เช่น "คพ101" → "CS101"
+		    else if (/^คพ/i.test(q)) {
+		        q = q.replace(/^คพ/i, 'CS');
+		    }
+
+		    return q;
+		}
+		
         const searchCourses = async (query) => {
             if (!query || query.trim().length < 2) {
                 searchResultsDiv.innerHTML = '';
                 searchResultsDiv.style.display = 'none';
                 return;
             }
+		const apiQuery = normalizeSearchQuery(query);
             try {
                 const response = await fetch(
-                    `${FULL_API_URL}?query=${encodeURIComponent(query)}`, 
+                    `${FULL_API_URL}?query=${encodeURIComponent(apiQuery)}`, 
                     { headers: getAuthHeaders() }
                 );
 
